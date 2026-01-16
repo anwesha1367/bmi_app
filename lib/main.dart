@@ -70,6 +70,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     label: Text('Enter your height in inches:'),
                     prefixIcon: Icon(Icons.height_outlined)),
                 keyboardType: TextInputType.number,
+              ),
+              TextField(
+                controller: incontroller,
+                decoration: InputDecoration(
+                    label: Text('Enter your height in inches:'),
+                    prefixIcon: Icon(Icons.height_outlined)),
+                keyboardType: TextInputType.number,
               )
             ],
           ),
