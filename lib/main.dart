@@ -29,8 +29,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var wtcontroller=TextEditingController();
   var ftcontroller=TextEditingController();
   var incontroller=TextEditingController();
-  // var result="";
-  // var bgColor;
+  var result="";
+  var bgColor;
 
   @override
   Widget build(BuildContext context) {
@@ -38,47 +38,76 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Your BMI"),
+
       ),
-      body:Center(
-        child: Container(
-          width:300,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('BMI',style: TextStyle(
-                fontSize: 34, fontWeight: FontWeight.bold,
-              ),),
-              TextField(
-                controller: wtcontroller,
-                decoration: InputDecoration(
-                  label: Text('Enter your weight in kg:'),
-                  prefixIcon: Icon(Icons.line_weight)
+      body:Container(
+        color: Colors.amberAccent,
+        child: Center(
+          child: Container(
+            width:300,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('BMI',style: TextStyle(
+                  fontSize: 34, fontWeight: FontWeight.bold,
+                ),),
+                TextField(
+                  controller: wtcontroller,
+                  decoration: InputDecoration(
+                    label: Text('Enter your weight in kg:'),
+                    prefixIcon: Icon(Icons.line_weight)
+                  ),
+                  keyboardType: TextInputType.number,
+                ),SizedBox(height: 20,),
+                TextField(
+                  controller: ftcontroller,
+                  decoration: InputDecoration(
+                      label: Text('Enter your height in feet:'),
+                      prefixIcon: Icon(Icons.height)
+                  ),
+                  keyboardType: TextInputType.number,
+                ),SizedBox(height: 20,),
+                TextField(
+                  controller: incontroller,
+                  decoration: InputDecoration(
+                      label: Text('Enter your height in inches:'),
+                      prefixIcon: Icon(Icons.height_outlined)),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
-              ),SizedBox(height: 20,),
-              TextField(
-                controller: ftcontroller,
-                decoration: InputDecoration(
-                    label: Text('Enter your height in feet:'),
-                    prefixIcon: Icon(Icons.height)
-                ),
-                keyboardType: TextInputType.number,
-              ),SizedBox(height: 20,),
-              TextField(
-                controller: incontroller,
-                decoration: InputDecoration(
-                    label: Text('Enter your height in inches:'),
-                    prefixIcon: Icon(Icons.height_outlined)),
-                keyboardType: TextInputType.number,
-              ),
-              TextField(
-                controller: incontroller,
-                decoration: InputDecoration(
-                    label: Text('Enter your height in inches:'),
-                    prefixIcon: Icon(Icons.height_outlined)),
-                keyboardType: TextInputType.number,
-              )
-            ],
+                SizedBox(height: 20,),
+                ElevatedButton(onPressed: (){
+                  var wt=wtcontroller.text.toString();
+                  var ft=ftcontroller.text.toString();
+                  var In=incontroller.text.toString();
+                  if(wt!="" && ft!="" && In!=""){
+                    var iWt=int.parse(wt);
+                    var iFt=int.parse(ft);
+                    var iIn=int.parse(In);
+                    var tIn=(iFt*12)+iIn;
+                    var tCm=tIn*2.54;
+                    var tM=tCm/100;
+                    var bmi=iWt/(tM*tM);
+                    setState(() {
+                      result=bmi.toString();
+                    });
+
+
+
+                  }
+                  else{
+                    setState(() {
+                      result="Please fill all the fields !";
+
+                    });
+                  }
+                },child: Text('Calculate')),
+                Text(result,style: TextStyle(
+                  fontSize: 20, color:Colors.red,
+                ),),
+
+
+              ],
+            ),
           ),
         ),
       )
